@@ -11,7 +11,6 @@ const session = require("express-session");
 const compression = require("compression");
 const cors = require("cors");
 
-
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const adminController = require("./controller/adminController");
@@ -98,7 +97,8 @@ app.use("/login", usersRouter);
 //   next();
 // });
 
-app.listen(5000, () => {
+const PORT = procces.env.PORT;
+app.listen(5000 || PORT, () => {
   console.log("PORT: 5000");
 });
 
