@@ -15,7 +15,8 @@ router.get("/", controller.getHomePage);
 
 router.post("/", emailController.sendMail);
 
-router.get("/donations", isLoggedin, controller.donation);
+// router.get("/donations", isLoggedin, controller.donation);
+router.get("/donations", controller.donation);
 
 router.get("/logout", (req, res) => {
   req.logout();

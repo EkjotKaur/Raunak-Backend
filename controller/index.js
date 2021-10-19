@@ -88,3 +88,49 @@ exports.thanks = async (req, res) => {
       res.status(500).json({ status: false, message: "Something went wrong!" });
     });
 };
+
+exports.addImg = (req, res) => {
+  Donator.findOne({ payment_id: req.body.payment_id })
+    .then((user) => {
+      user.verificationImg = req.body.url;
+      user
+        .save()
+        .then((savedUser) => {
+          res.status(200).json({
+            status: true,
+            data: savedUser,
+          });
+        })
+        .catch((err) => {
+          res
+            .status(500)
+            .json({ status: false, message: "Something went wrong!" });
+        });
+    })
+    .catch((err) => {
+      res.status(500).json({ status: false, message: "Something went wrong!" });
+    });
+};
+
+exports.verify = (req, res) => {
+  Donator.findOne({ payment_id: req.body.payment_id })
+    .then((user) => {
+      user.verified = req.body.verified;
+      user
+        .save()
+        .then((savedUser) => {
+          res.status(200).json({
+            status: true,
+            data: savedUser,
+          });
+        })
+        .catch((err) => {
+          res
+            .status(500)
+            .json({ status: false, message: "Something went wrong!" });
+        });
+    })
+    .catch((err) => {
+      res.status(500).json({ status: false, message: "Something went wrong!" });
+    });
+};

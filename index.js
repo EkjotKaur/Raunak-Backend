@@ -9,20 +9,25 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const session = require("express-session");
 const compression = require("compression");
+const cors = require("cors");
+
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const adminController = require("./controller/adminController");
 
+const app = express();
+app.use(cors());
 
-var app = express();
 app.use(compression());
 connectDB();
+
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'ejs');
 
 app.use(logger("dev"));
+// app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

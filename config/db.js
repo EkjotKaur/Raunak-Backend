@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 require("dotenv").config();
-
+// ////MONGO_URL_DEV = mongodb//localhost:27017/raunak
 let URI = process.env.MONGO_URL_DEV;
 
 if (process.env.NODE_ENV == "production") {
