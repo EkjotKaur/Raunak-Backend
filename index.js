@@ -97,8 +97,8 @@ app.use("/login", usersRouter);
 //   next();
 // });
 
-const PORT = procces.env.PORT;
-app.listen(5000 || PORT, () => {
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
   console.log("PORT: 5000");
 });
 
