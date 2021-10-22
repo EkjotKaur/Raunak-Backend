@@ -4,25 +4,25 @@ const Donator = require("../models/donations");
 const transporter = nodemailer.createTransport({
   service: "gmail",
   host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
+  port: 587,
+  secure: false,
   auth: {
-    user: "octave.raunakh@gmail.com",
-    pass: "Octave#Raunakh2020",
+    user: "rauankh.techsoc@gmail.com",
+    pass: "RaunakhTechOctaveSoc2019-2023",
   },
 });
 
 exports.sendMail = (req, res) => {
   const contactContent = {
-    name: req.body.contactname,
-    email: req.body.contactemail,
-    subject: req.body.contactsubject,
-    message: req.body.contactmessage,
+    name: req.body.name,
+    email: req.body.email,
+    subject: req.body.subject,
+    message: req.body.message,
   };
 
   const contactOptions = {
-    from: "octave.raunakh@gmail.com",
-    to: "octave.raunakh@gmail.com",
+    from: "rauankh.techsoc@gmail.com",
+    to: "rauankh.techsoc@gmail.com",
     subject: "[Raunakh] " + contactContent.subject,
     text:
       contactContent.name +
@@ -35,9 +35,10 @@ exports.sendMail = (req, res) => {
   transporter.sendMail(contactOptions, function (error, info) {
     if (error) {
       console.log(error);
+      res.status(500).json({ status: false, message: "Something went wrong!" });
     } else {
       console.log("Email sent: " + info.response);
-      res.redirect("/");
+      res.status(200).json({ status: false, message: "Email Sent" });
     }
   });
 
@@ -45,10 +46,12 @@ exports.sendMail = (req, res) => {
 };
 
 exports.hook = (req, res) => {
+  console.log("HOOK");
   const payment = req.body.payload.payment.entity;
-  // console.log(payment);
+  console.log(payment);
 
   if (req.body.event == "payment.captured") {
+    console.log("payment.captured");
     const email = payment.email;
     const contact = payment.contact;
     const method = payment.method;
@@ -79,7 +82,7 @@ exports.hook = (req, res) => {
         };
 
         const mailOptions = {
-          from: "octave.raunakh@gmail.com",
+          from: "rauankh.techsoc@gmail.com",
           to: mailContent.email,
           subject: mailContent.subject,
           html: str,
