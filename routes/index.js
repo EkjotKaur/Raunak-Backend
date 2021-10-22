@@ -33,4 +33,8 @@ router.post("/hook", emailController.hook);
 
 router.post("/paytm", paytmController.paytm);
 
+router.post("/verify", controller.verify);
+
+router.post("/image", controller.addImg);
+
 module.exports = router;

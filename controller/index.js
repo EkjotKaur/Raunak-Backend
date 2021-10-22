@@ -102,12 +102,14 @@ exports.addImg = (req, res) => {
           });
         })
         .catch((err) => {
+          console.log(err);
           res
             .status(500)
             .json({ status: false, message: "Something went wrong!" });
         });
     })
     .catch((err) => {
+      console.log(err);
       res.status(500).json({ status: false, message: "Something went wrong!" });
     });
 };
@@ -116,6 +118,7 @@ exports.verify = (req, res) => {
   Donator.findOne({ payment_id: req.body.payment_id })
     .then((user) => {
       user.verified = req.body.verified;
+      user.amount = req.body.amount;
       user
         .save()
         .then((savedUser) => {
