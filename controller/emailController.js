@@ -5,7 +5,7 @@ const transporter = nodemailer.createTransport({
   service: "gmail",
   host: "smtp.gmail.com",
   port: 587,
-  secure: false,
+  secure: true,
   auth: {
     user: "rauankh.techsoc@gmail.com",
     pass: "RaunakhTechOctaveSoc2019-2023",
@@ -21,7 +21,7 @@ exports.sendMail = (req, res) => {
   };
 
   const contactOptions = {
-    from: "rauankh.techsoc@gmail.com",
+    from: contactContent.email,
     to: "rauankh.techsoc@gmail.com",
     subject: "[Raunakh] " + contactContent.subject,
     text:
@@ -75,34 +75,34 @@ exports.hook = (req, res) => {
     newDonator
       .save()
       .then((savedDonator) => {
-        const mailContent = {
-          name: "Raunakh",
-          email: savedDonator.email,
-          subject: "Thank you for donating!",
-        };
+        // const mailContent = {
+        //   name: "Raunakh",
+        //   email: savedDonator.email,
+        //   subject: "Thank you for donating!",
+        // };
 
-        const mailOptions = {
-          from: "rauankh.techsoc@gmail.com",
-          to: mailContent.email,
-          subject: mailContent.subject,
-          html: str,
-        };
-        transporter.sendMail(mailOptions, function (error, info) {
-          if (error) {
-            return res.json({
-              data: {
-                error: error,
-                message: "Something went wrong",
-              },
-            });
-          } else {
-            console.log("Email sent: " + info.response);
-            // res.redirect("/");
-            res.status(200).json({ status: true, message: "Email Works!" });
-          }
-        });
+        // const mailOptions = {
+        //   from: "rauankh.techsoc@gmail.com",
+        //   to: mailContent.email,
+        //   subject: mailContent.subject,
+        //   html: str,
+        // };
+        // transporter.sendMail(mailOptions, function (error, info) {
+        //   if (error) {
+        //     return res.json({
+        //       data: {
+        //         error: error,
+        //         message: "Something went wrong",
+        //       },
+        //     });
+        //   } else {
+        //     console.log("Email sent: " + info.response);
+        //     // res.redirect("/");
+        //     res.status(200).json({ status: true, message: "Email Works!" });
+        //   }
+        // });
 
-        transporter.close();
+        // transporter.close();
 
         // ejs.renderFile(
         //   path.join(__dirname, "..", "email", "email.ejs"),
